@@ -30,12 +30,13 @@ class MysqlDatabase implements Database {
      * @return string
      */
     public function getDumpCommandLine($outputPath) {
-        return sprintf('mysqldump --routines %s --host=%s --port=%s --user=%s --password=%s %s %s > %s',
+        return sprintf('mysqldump --routines %s --host=%s --port=%s --user=%s --password=%s --ssl-ca=%s %s %s > %s',
             $this->config['options'],
             escapeshellarg($this->config['host']),
             escapeshellarg($this->config['port']),
             escapeshellarg($this->config['user']),
             escapeshellarg($this->config['pass']),
+            escapeshellarg($this->config['rds_cert_path']),
             escapeshellarg($this->config['database']),
             $this->getExcludedTables($this->config['database'], $this->config['exclude']),
             escapeshellarg($outputPath)
